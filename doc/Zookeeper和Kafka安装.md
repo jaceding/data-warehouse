@@ -110,3 +110,24 @@ pdcp -a /etc/profile.d/my_env.sh /etc/profile.d/my_env.sh
 ```shell
 pdsh -a "kafka-server-start.sh -daemon /opt/kafka_2.11-2.4.1/config/server.properties"
 ```
+
+## Kafka压力测试
+
+用Kafka官方自带的脚本，对Kafka进行压测。Kafka压测时，可以查看到哪个地方出现了瓶颈（CPU，内存，网络IO）。
+
+kafka-consumer-perf-test.sh
+
+kafka-producer-perf-test.sh
+
+### Kafka Producer压力测试
+
+```shell
+kafka-producer-perf-test.sh  --topic test --record-size 100 --num-records 100000 --throughput -1 --producer-props bootstrap.servers=hadoop12:9092,hadoop13:9092,hadoop14:9092
+```
+
+### Kafka Consumer压力测试
+
+```shell
+kafka-consumer-perf-test.sh --broker-list hadoop12:9092,hadoop13:9092,hadoop14:9092 --topic test --fetch-size 10000 --messages 10000000 --threads 1
+```
+
