@@ -1,6 +1,6 @@
 # Hadoop安装
 
-Hadoop 版本 Apache 3.1.3
+Hadoop 版本 3.1.3
 
 ## 集群规划
 
@@ -53,6 +53,26 @@ export PATH=$PATH:$HADOOP_HOME/sbin
     <property>
         <name>hadoop.tmp.dir</name>
         <value>/opt/hadoop-3.1.3/data</value>
+    </property>
+    <!-- 配置HDFS网页登录使用的静态用户为root -->
+    <property>
+        <name>hadoop.http.staticuser.user</name>
+        <value>root</value>
+    </property>
+    <!-- 配置该root(superUser)允许通过代理访问的主机节点 -->
+    <property>
+        <name>hadoop.proxyuser.root.hosts</name>
+        <value>*</value>
+    </property>
+    <!-- 配置该root(superUser)允许通过代理用户所属组 -->
+    <property>
+        <name>hadoop.proxyuser.root.groups</name>
+        <value>*</value>
+    </property>
+    <!-- 配置该root(superUser)允许通过代理的用户-->
+    <property>
+        <name>hadoop.proxyuser.root.users</name>
+        <value>*</value>
     </property>
 </configuration>
 ```

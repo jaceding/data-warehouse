@@ -22,7 +22,9 @@ Kafka 版本 2.11-2.4.1
 ```shell
 tar -zxvf apache-zookeeper-3.5.7-bin.tar.gz -C /opt
 tar -zxvf kafka_2.11-2.4.1.tgz -C /opt
-pdcp -a -r /opt/apache-zookeeper-3.5.7-bin /opt
+# 修改zookeeper目录名
+cd /opt && mv apache-zookeeper-3.5.7-bin zookeeper-3.5.7
+pdcp -a -r /opt/zookeeper-3.5.7 /opt
 pdcp -a -r /opt/kafka_2.11-2.4.1 /opt
 ```
 
@@ -32,7 +34,7 @@ pdcp -a -r /opt/kafka_2.11-2.4.1 /opt
 
 ```shell
 # 创建 zkData 目录
-pdsh -a "cd /opt/apache-zookeeper-3.5.7-bin && mkdir zkData"
+pdsh -a "cd /opt/zookeeper-3.5.7 && mkdir zkData"
 # 创建文件 myid
 vim myid
 # 三台服务器分别输入 2，3，4
@@ -46,7 +48,7 @@ mv zoo_sample.cfg zoo.cfg
 # 修改 zoo.cfg
 vim zoo.cfg
 # 修改 dataDir 
-dataDir=/opt/apache-zookeeper-3.5.7-bin/zkData
+dataDir=/opt/zookeeper-3.5.7/zkData
 # 添加如下内容
 #######################cluster##########################
 server.2=hadoop12:2888:3888
@@ -57,13 +59,13 @@ server.4=hadoop14:2888:3888
 ### 复制配置文件到其他服务器
 
 ```shell
-pdcp -a /opt/apache-zookeeper-3.5.7-bin/conf/zoo.cfg /opt/apache-zookeeper-3.5.7-bin/conf/zoo.cfg
+pdcp -a /opt/zookeeper-3.5.7/conf/zoo.cfg /opt/zookeeper-3.5.7/conf/zoo.cfg
 ```
 
 ### 启动
 
 ```shell
-pdsh -a "cd /opt/apache-zookeeper-3.5.7-bin && bin/zkServer.sh start"
+pdsh -a "cd /opt/zookeeper-3.5.7 && bin/zkServer.sh start"
 ```
 
 ## 安装Kafka
