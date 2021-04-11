@@ -372,3 +372,11 @@ stop-dfs.sh
 start-yarn.sh
 stop-yarn.sh
 ```
+
+### 启动/关闭历史服务器
+
+```shell
+mapred --daemon start historyserver
+mapred --daemon stop historyserver
+```
+
